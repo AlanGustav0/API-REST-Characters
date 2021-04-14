@@ -3,8 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/API-REST-Characters.iml" filepath="$PROJECT_DIR$/.idea/API-REST-Characters.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Characters/Characters.iml" filepath="$PROJECT_DIR$/Characters/Characters.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Characters/.mvn/wrapper/wrapper.iml" filepath="$PROJECT_DIR$/Characters/.mvn/wrapper/wrapper.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Characters/characters.iml" filepath="$PROJECT_DIR$/Characters/characters.iml" />
     </modules>
   </component>
 </project>

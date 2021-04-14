@@ -15,7 +15,7 @@ import static springfox.documentation.builders.RequestHandlerSelectors.basePacka
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-    private static final String BASE_PACKAGE = "com.digitalinovationone.characters.controller";
+    private static final String BASE_PACKAGE = "com.digitalinovationone.characters.com.digitalinovationone.characters.controller";
     private static final String API_TITLE = "Character API";
     private static final String API_DESCRIPTION = "REST API for characters management";
     private static final String CONTACT_NAME = "Alan Gustavo";
