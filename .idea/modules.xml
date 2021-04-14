@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/API-REST-Characters.iml" filepath="$PROJECT_DIR$/.idea/API-REST-Characters.iml" />
       <module fileurl="file://$PROJECT_DIR$/Characters/Characters.iml" filepath="$PROJECT_DIR$/Characters/Characters.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Characters/.mvn/wrapper/wrapper.iml" filepath="$PROJECT_DIR$/Characters/.mvn/wrapper/wrapper.iml" />
     </modules>
   </component>
 </project>
