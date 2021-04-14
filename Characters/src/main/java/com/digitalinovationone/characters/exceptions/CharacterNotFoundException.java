@@ -11,5 +11,5 @@ public class CharacterNotFoundException extends Exception {
         super(String.format("Character %s not found in the system.", characterName));
     }
 
-    public CharacterNotFoundException(Long id) {super(String.format("Character %s not found in the system.",id));}
+    public CharacterNotFoundException(Long id) {super(String.format("Character with id %s not found in the system.",id));}
 }

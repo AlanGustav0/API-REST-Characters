@@ -12,7 +12,7 @@ public class CharacterDTOBuilder {
     private Long id = 1L;
 
     @Builder.Default
-    private String name = "Capitão América";
+    private String name = "Capitao America";
 
     @Builder.Default
     private String universe = "Marvel";
@@ -21,7 +21,7 @@ public class CharacterDTOBuilder {
     private int levelPower = 48000;
 
     @Builder.Default
-    private CharacterType type = CharacterType.MARVEL;
+    private CharacterType type = CharacterType.HEROI;
 
     public CharacterDTO toCharacterDTO() {
         return new CharacterDTO(id,

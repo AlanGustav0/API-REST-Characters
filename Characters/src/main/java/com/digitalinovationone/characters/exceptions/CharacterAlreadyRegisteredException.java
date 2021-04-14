@@ -7,6 +7,6 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 public class CharacterAlreadyRegisteredException extends Exception {
 
     public CharacterAlreadyRegisteredException(String characterName) {
-        super(String.format("Character with name %d already registered in the system.", characterName));
+        super(String.format("Character with name %s already registered in the system.", characterName));
     }
 }

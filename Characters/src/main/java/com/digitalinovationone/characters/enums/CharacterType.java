@@ -7,8 +7,9 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum CharacterType {
 
-    MARVEL("Capitão América"),
-    DCCOMICS("Homen de Ferro");
+    HEROI("Capitão América"),
+    VILAO("Thanos"),
+    FUN("Perna Longa");
 
     private final String description;
 }

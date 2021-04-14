@@ -20,7 +20,7 @@ public interface CharacterControllerDocs {
 
     @ApiOperation(value = "Character creation operation")
     @ApiResponses( value = {
-        @ApiResponse(code = 201, message = "Success character creation"),
+            @ApiResponse(code = 201, message = "Success character creation"),
             @ApiResponse(code = 400, message = "Missing required fields or wrong field range value.")
     })
     CharacterDTO createCharacter(CharacterDTO characterDTO) throws CharacterAlreadyRegisteredException;

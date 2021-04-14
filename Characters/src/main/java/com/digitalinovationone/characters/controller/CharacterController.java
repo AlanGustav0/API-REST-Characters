@@ -23,7 +23,7 @@ public class CharacterController implements CharacterControllerDocs {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CharacterDTO createCharacter(@Valid @RequestBody CharacterDTO characterDTO) throws CharacterAlreadyRegisteredException {
+    public CharacterDTO createCharacter(@RequestBody @Valid CharacterDTO characterDTO) throws CharacterAlreadyRegisteredException {
         return characterService.createCharacter(characterDTO);
     }
 
@@ -37,7 +37,7 @@ public class CharacterController implements CharacterControllerDocs {
         return characterService.listCharacters();
     }
 
-    @PatchMapping("/{id}")
+    @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable Long id) throws CharacterNotFoundException {
         characterService.deleteById(id);
