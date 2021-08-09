@@ -31,7 +31,7 @@ import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
-public class CharacterServiceTest {
+public class CharactersServiceTest {
 
     private static final CharacterType HEROI = CharacterType.HEROI;
 
@@ -41,7 +41,7 @@ public class CharacterServiceTest {
     private CharacterMapper characterMapper = CharacterMapper.INSTANCE;
 
     @InjectMocks
-    private CharacterService characterService;
+    private CharactersService charactersService;
 
     @Test
     void whenCharacterInformedThenItShouldBeCreated() throws CharacterAlreadyRegisteredException {
@@ -54,7 +54,7 @@ public class CharacterServiceTest {
         when(characterRepository.save(expectedSavedCharacter)).thenReturn(expectedSavedCharacter);
 
         //Então, camamos o método de CharactersDTO e nos retorna outro DTO
-        CharacterDTO createdCharacterDTO = characterService.createCharacter(expectedCharacterDTO);
+        CharacterDTO createdCharacterDTO = charactersService.createCharacter(expectedCharacterDTO);
 
         //Aqui realizamos o teste através do assertThat do Junit se os dados passados estão de acordo com a classe CharacterDTOBuilder
         //O "assertThat" trata-se do Hancrest que neste caso é utilizado para fazer o Matcher dos elementos
@@ -76,7 +76,7 @@ public class CharacterServiceTest {
         when(characterRepository.findByName(expectedCharacterDTO.getName())).thenReturn(Optional.of(duplicatedCharacter));
 
         // Então fazemos o assertThat e validamos se uma exceção foi lançada
-        assertThrows(CharacterAlreadyRegisteredException.class, () -> characterService.createCharacter(expectedCharacterDTO));
+        assertThrows(CharacterAlreadyRegisteredException.class, () -> charactersService.createCharacter(expectedCharacterDTO));
     }
 
     @Test
@@ -89,7 +89,7 @@ public class CharacterServiceTest {
         when(characterRepository.findByName(expectedFoundCharacter.getName())).thenReturn(Optional.of(expectedFoundCharacter));
 
         // Então validadamos o nome
-        CharacterDTO foundCharacterDTO = characterService.findByName(expectedFoundCharacterDTO.getName());
+        CharacterDTO foundCharacterDTO = charactersService.findByName(expectedFoundCharacterDTO.getName());
 
         assertThat(foundCharacterDTO, is(equalTo(expectedFoundCharacterDTO)));
     }
@@ -103,7 +103,7 @@ public class CharacterServiceTest {
         when(characterRepository.findByName(expectedFoundCharacterDTO.getName())).thenReturn(Optional.empty());
 
         // Então, fazemos a verificação e tratamos a exceção
-        assertThrows(CharacterNotFoundException.class, () -> characterService.findByName(expectedFoundCharacterDTO.getName()));
+        assertThrows(CharacterNotFoundException.class, () -> charactersService.findByName(expectedFoundCharacterDTO.getName()));
     }
 
     @Test
@@ -116,7 +116,7 @@ public class CharacterServiceTest {
         when(characterRepository.findAll()).thenReturn(Collections.singletonList(expectedFoundCharacter));
 
         //Então criamos uma lista de personagens e validados se estamos recebendo uma lista de personagens
-        List<CharacterDTO> foundListCharactersDTO = characterService.listCharacters();
+        List<CharacterDTO> foundListCharactersDTO = charactersService.listCharacters();
 
         assertThat(foundListCharactersDTO, is(not(empty())));
         assertThat(foundListCharactersDTO.get(0), is(equalTo(expectedFoundCharacterDTO)));
@@ -128,7 +128,7 @@ public class CharacterServiceTest {
         when(characterRepository.findAll()).thenReturn(Collections.EMPTY_LIST);
 
         //Então, verificamos se esta lista esta ou não vazia
-        List<CharacterDTO> foundListBeersDTO = characterService.listCharacters();
+        List<CharacterDTO> foundListBeersDTO = charactersService.listCharacters();
 
         assertThat(foundListBeersDTO, is(empty()));
     }
@@ -144,7 +144,7 @@ public class CharacterServiceTest {
         doNothing().when(characterRepository).deleteById(expectedDeletedCharacterDTO.getId());
 
         // Então chamamos o método de exclusão de personagem e validados nosso teste
-        characterService.deleteById(expectedDeletedCharacterDTO.getId());
+        charactersService.deleteById(expectedDeletedCharacterDTO.getId());
 
         verify(characterRepository, times(1)).findById(expectedDeletedCharacterDTO.getId());
         verify(characterRepository, times(1)).deleteById(expectedDeletedCharacterDTO.getId());

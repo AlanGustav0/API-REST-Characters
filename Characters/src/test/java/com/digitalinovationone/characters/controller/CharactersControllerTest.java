@@ -3,7 +3,7 @@ package com.digitalinovationone.characters.controller;
 import com.digitalinovationone.characters.builder.CharacterDTOBuilder;
 import com.digitalinovationone.characters.dto.CharacterDTO;
 import com.digitalinovationone.characters.exceptions.CharacterNotFoundException;
-import com.digitalinovationone.characters.service.CharacterService;
+import com.digitalinovationone.characters.service.CharactersService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
-public class CharacterControllerTest {
+public class CharactersControllerTest {
 
     private static final String CHARACTER_API_URL_PATH = "/api/v1/characters";
     private static final long VALID_CHARACTER_ID = 1L;
@@ -39,15 +39,15 @@ public class CharacterControllerTest {
 
     //Sinalizamos que esta classe trata-se de um Mock
     @Mock
-    private CharacterService characterService;
+    private CharactersService charactersService;
 
     @InjectMocks
-    private CharacterController characterController;
+    private CharactersController charactersController;
 
     //Aqui é a configuração do mockMVC, para fazer um mapeamento de arquivo Json e testar apenas a classe ControllerTest
     @BeforeEach
     void setUp() {
-        mockMvc = MockMvcBuilders.standaloneSetup(characterController)
+        mockMvc = MockMvcBuilders.standaloneSetup(charactersController)
                 .setCustomArgumentResolvers(new PageableHandlerMethodArgumentResolver())
                 .setViewResolvers((s, locale) -> new MappingJackson2JsonView())
                 .build();
@@ -59,7 +59,7 @@ public class CharacterControllerTest {
         CharacterDTO characterDTO = CharacterDTOBuilder.builder().build().toCharacterDTO();
 
         // Quando recebemos um personagem
-        when(characterService.createCharacter(characterDTO)).thenReturn(characterDTO);
+        when(charactersService.createCharacter(characterDTO)).thenReturn(characterDTO);
 
         /* Então, verificamos com o mockMVC se o método POST está sendo executado com sucesso, ele irá simular
         da mesma forma como se estivesse realizando o POST de um arquivo Json através do POSTMAN.
@@ -93,7 +93,7 @@ public class CharacterControllerTest {
         CharacterDTO characterDTO = CharacterDTOBuilder.builder().build().toCharacterDTO();
 
         //Quando recebemos o retorno deste personagem
-        when(characterService.findByName(characterDTO.getName())).thenReturn(characterDTO);
+        when(charactersService.findByName(characterDTO.getName())).thenReturn(characterDTO);
 
         // Então, verificamos se o retorno GET está sendo executado com sucesso
         mockMvc.perform(MockMvcRequestBuilders.get(CHARACTER_API_URL_PATH + "/" + characterDTO.getName())
@@ -111,7 +111,7 @@ public class CharacterControllerTest {
         CharacterDTO characterDTO = CharacterDTOBuilder.builder().build().toCharacterDTO();
 
         //Quando recebemos o retorno deste personagem
-        when(characterService.findByName(characterDTO.getName())).thenThrow(CharacterNotFoundException.class);
+        when(charactersService.findByName(characterDTO.getName())).thenThrow(CharacterNotFoundException.class);
 
         // Então, verificamos se o status está retornando NotFound, o personagem não foi encontrado
         mockMvc.perform(MockMvcRequestBuilders.get(CHARACTER_API_URL_PATH + "/" + characterDTO.getName())
@@ -125,7 +125,7 @@ public class CharacterControllerTest {
         CharacterDTO characterDTO = CharacterDTOBuilder.builder().build().toCharacterDTO();
 
         //Quando recebemos uma lista de personagens
-        when(characterService.listCharacters()).thenReturn(Collections.singletonList(characterDTO));
+        when(charactersService.listCharacters()).thenReturn(Collections.singletonList(characterDTO));
 
         // Então, validamos se o status esta retornando OK
         mockMvc.perform(MockMvcRequestBuilders.get(CHARACTER_API_URL_PATH)
@@ -143,7 +143,7 @@ public class CharacterControllerTest {
         CharacterDTO characterDTO = CharacterDTOBuilder.builder().build().toCharacterDTO();
 
         //Quando uma lista é retornada
-        when(characterService.listCharacters()).thenReturn(Collections.singletonList(characterDTO));
+        when(charactersService.listCharacters()).thenReturn(Collections.singletonList(characterDTO));
 
         // Então, validados se uma lista está sendo retornada sem personagens
         mockMvc.perform(MockMvcRequestBuilders.get(CHARACTER_API_URL_PATH)
@@ -157,7 +157,7 @@ public class CharacterControllerTest {
         CharacterDTO characterDTO = CharacterDTOBuilder.builder().build().toCharacterDTO();
 
         //Quando recebemos um ID
-        doNothing().when(characterService).deleteById(characterDTO.getId());
+        doNothing().when(charactersService).deleteById(characterDTO.getId());
 
         // Então, validamos se este ID não foi encontrado para ser deletado
         mockMvc.perform(MockMvcRequestBuilders.delete(CHARACTER_API_URL_PATH + "/" + characterDTO.getId())
@@ -168,7 +168,7 @@ public class CharacterControllerTest {
     @Test
     void whenDELETEIsCalledWithInvalidIdThenNotFoundStatusIsReturned() throws Exception {
         //when
-        doThrow(CharacterNotFoundException.class).when(characterService).deleteById(INVALID_CHARACTER_ID);
+        doThrow(CharacterNotFoundException.class).when(charactersService).deleteById(INVALID_CHARACTER_ID);
 
         // then
         mockMvc.perform(MockMvcRequestBuilders.delete(CHARACTER_API_URL_PATH + "/" + INVALID_CHARACTER_ID)

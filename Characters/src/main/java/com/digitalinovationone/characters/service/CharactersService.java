@@ -17,10 +17,10 @@ import java.util.stream.Collectors;
 //Notação de Classe de serviço
 @Service
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class CharacterService {
+public class CharactersService {
 
-    private final CharacterRepository characterRepository;
-    private final CharacterMapper characterMapper = CharacterMapper.INSTANCE;
+    public CharacterRepository characterRepository;
+    public CharacterMapper characterMapper = CharacterMapper.INSTANCE;
 
     //Método para criar um novo Character
     public CharacterDTO createCharacter(CharacterDTO characterDTO) throws CharacterAlreadyRegisteredException {
